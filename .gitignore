@@ -1,14 +1,31 @@
 # Compiled class file
 *.class
+bin
+obj
  
-#IntelliJ files
+# IntelliJ files
 *.iml
 *.idea
+*.iws
+*.ipr
  
-#Target
+# Target
+HELP.md
 target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
  
-# Package Files #
+#Package Files
 *.jar
 *.war
 *.nar
@@ -26,7 +43,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Compiled binary addons (http://nodejs.org/api/addons.html)
+# Compiled binary addons
 build/Release
 
 # Dependency directories
@@ -56,7 +73,6 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
 .DS_Store
 *.suo
 *.ntvs*
