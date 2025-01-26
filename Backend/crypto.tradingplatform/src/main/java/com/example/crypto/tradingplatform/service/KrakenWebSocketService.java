@@ -1,5 +1,6 @@
 package com.example.crypto.tradingplatform.service;
 
+import com.example.crypto.tradingplatform.util.WebSocketJsonHelperUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,8 +17,9 @@ public class KrakenWebSocketService {
     @Value("${kraken.websocket.url}")
     private String KRAKEN_WS_URL;
 
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
     private Session session = null;
-    private final ObjectMapper objectMapper = new ObjectMapper();
     private Map<String, JsonNode> cryptoPrices = new HashMap<>();
 
     public void connect() {
@@ -39,10 +41,16 @@ public class KrakenWebSocketService {
     @OnMessage
     public void onMessage(String message) {
         try {
-            JsonNode jsonNode = objectMapper.readTree(message);
+            JsonNode jsonNode = OBJECT_MAPPER.readTree(message);
 
-            if (jsonNode.has("channel") && "ticker".equals(jsonNode.get("channel").asText())) {
-                cryptoPrices.put(jsonNode.get("data").get(0).get("symbol").asText(), jsonNode);
+            if (jsonNode.has("channel") && "ticker".equals(jsonNode.path("channel").asText())) {
+                JsonNode dataNode = jsonNode.path("data");
+                if (dataNode.isArray() && !dataNode.isEmpty()) {
+                    JsonNode firstData = dataNode.path(0);
+                    if (firstData.has("symbol") && !firstData.isEmpty()) {
+                        cryptoPrices.put(firstData.get("symbol").asText(), jsonNode);
+                    }
+                }
             }
 
             System.out.println(jsonNode.toPrettyString() + "\n");
@@ -70,31 +78,12 @@ public class KrakenWebSocketService {
 
     private void subscribeToTicker() {
         try {
-            String payload = createSubscribePayload();
-            session.getAsyncRemote().sendText(payload);
+            String body = WebSocketJsonHelperUtils.createSubscribeMessage();
+            session.getAsyncRemote().sendText(body);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    private String createSubscribePayload() {
-        return "{" +
-                    "\"method\": \"subscribe\"," +
-                        "\"params\": {" +
-                        "\"channel\": \"ticker\"," +
-                        "\"symbol\": [" +
-                            "\"BTC/USD\", \"ETH/USD\", \"XRP/USD\"," +
-                            "\"ADA/USD\", \"DOGE/USD\", \"USDC/USD\"," +
-                            "\"SOL/USD\", \"LTC/USD\", \"MANA/USD\"," +
-                            "\"MATIC/USD\", \"AVAX/USD\", \"GST/USD\"," +
-                            "\"TRX/USD\", \"BAT/USD\", \"DAI/USD\"," +
-                            "\"SUI/USD\", \"GALA/USD\", \"DOT/USD\"," +
-                            "\"XLM/USD\", \"ETC/USD\"" +
-                        "]" +
-                    "}" +
-                "}";
-    }
-
 
     public Map<String, JsonNode> getCryptoPrices() {
         return cryptoPrices;
