@@ -2,6 +2,7 @@
 *.class
 bin
 obj
+application.properties
  
 # IntelliJ files
 *.iml
