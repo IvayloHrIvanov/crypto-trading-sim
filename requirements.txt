@@ -7,3 +7,5 @@
 3. Text editor or IDE (Visual Studio and IntelliJ)
 
 4. PostgreSQL and (optional) PgAdmin
+
+5. Lombok and axios?
