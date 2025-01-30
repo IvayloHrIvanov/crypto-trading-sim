@@ -27,6 +27,8 @@ function TransactionHistory() {
               <td className="transactionColumn">Symbol: {transaction.assetSymbol}</td>
               <td className="transactionColumn">Quantity: {transaction.assetQuantity}</td>
               <td className="transactionColumn">Price: {transaction.assetPrice.toFixed(2)}</td>
+              {transaction.soldAt != null && transaction.soldAt != undefined && (
+              <td className="transactionColumn">Sold At: {transaction.soldAt.toFixed(2)}</td>)}
               {transaction.profit != null && transaction.profit != undefined && (
               <td className="transactionColumn">Profit or Loss: {transaction.profit.toFixed(2)}</td>)}
             </tr>

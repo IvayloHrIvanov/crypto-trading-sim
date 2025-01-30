@@ -25,6 +25,7 @@ export const buildSellTransactionData = (
   quantity,
   price,
   profit,
+  cryptoPrice,
   holdingId
 ) => ({
   assetSymbol: symbol,
@@ -32,6 +33,7 @@ export const buildSellTransactionData = (
   assetPrice: price,
   transactionType: "SELL",
   profit: profit,
+  soldAt: cryptoPrice,
   holding: {
     holdingId,
   },
@@ -41,11 +43,13 @@ export const buildSellTransactionWithoutHoldingData = (
   symbol,
   quantity,
   price,
-  profit
+  profit,
+  cryptoPrice
 ) => ({
   assetSymbol: symbol,
   assetQuantity: quantity,
   assetPrice: price,
   transactionType: "SELL",
   profit: profit,
+  soldAt: cryptoPrice,
 });

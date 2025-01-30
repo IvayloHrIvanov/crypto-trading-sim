@@ -15,6 +15,7 @@ export const getTransactions = async () => {
         assetPrice: item.assetPrice,
         transactionType: item.transactionType,
         profit: item.profit,
+        soldAt: item.soldAt,
         holding: item.holding
       };
     });
@@ -27,6 +28,7 @@ export const getTransactions = async () => {
 
 export const createTransaction = async (transaction) => {
   try {
+    console.log("a", transaction.soldAt);
     const response = await axios.post("/transaction", transaction);
     console.log("Transaction Created:", response.data);
     return response.data;

@@ -24,17 +24,21 @@ const HandleSell = async (holding, symbol, quantity, price) => {
     const accountBalances = await getAccountBalances();
     const rawPrices = await getCryptoPrices();
     const formattedPrices = formatCryptoPrices(rawPrices); // Filter and map the data for easier consumption
+    let cryptoPrice;
 
     const accountBalance = parseFloat(accountBalances[0].accountBalance);
     let updatedBalance, priceDifference;
 
     for (const cryptoData of formattedPrices) {
       if (cryptoData.symbol === symbol) {
+        cryptoPrice = parseFloat(cryptoData.price).toFixed(2);
         priceDifference = cryptoData.price - price; // Calculate the price difference
         updatedBalance = accountBalance - priceDifference * quantity;
         break;
       }
     }
+
+    console.log("a", cryptoPrice);
 
     if (updatedBalance == null) {
       throw new Error(`Price for ${symbol} not found.`);
@@ -67,6 +71,7 @@ const HandleSell = async (holding, symbol, quantity, price) => {
           quantity,
           price,
           profitOrLoss,
+          cryptoPrice,
           holding.holdingId
         )
       );
@@ -78,6 +83,7 @@ const HandleSell = async (holding, symbol, quantity, price) => {
           symbol,
           quantity,
           price,
+          cryptoPrice,
           profitOrLoss
         )
       );
