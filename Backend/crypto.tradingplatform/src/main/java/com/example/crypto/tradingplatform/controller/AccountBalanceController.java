@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173/")
-@RequestMapping("/api/accountBalance")
+@RequestMapping("/api/account-balance")
 public class AccountBalanceController {
 
     private final AccountBalanceService accountBalanceService;
