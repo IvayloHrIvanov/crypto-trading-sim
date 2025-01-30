@@ -5,6 +5,13 @@ import { buildBuyTransactionBody, createHoldingBody } from "@/util/RequestUtils"
 
 const HandleBuy = async (symbol, quantity, price) => {
   try {
+    if (quantity < 1 || quantity == null) {
+      alert(
+        "Cannot buy 0 or negative cryptocurrency."
+      );
+      return;
+    }
+
     const accountBalances = await getAccountBalances(); // Wait for the balances
     const updatedBalance = accountBalances[0].accountBalance - price * quantity; // Calculate the available balance
 

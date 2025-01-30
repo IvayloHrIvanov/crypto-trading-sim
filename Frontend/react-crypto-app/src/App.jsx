@@ -4,6 +4,7 @@ import AccountBalance from "./components/AccountBalance.jsx";
 import Holding from "./components/Holding.jsx";
 import TransactionHistory from "./components/TransactionHistory.jsx";
 import "./App.css";
+import ResetSimulation from "./components/ResetSimulation.jsx";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
       </div>
       <div className="App">
         <TransactionHistory />
+      </div>
+      <div className="App">
+        <ResetSimulation />
       </div>
     </>
   );

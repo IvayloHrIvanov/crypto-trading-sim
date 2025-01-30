@@ -28,16 +28,16 @@ function Holding() {
   };
 
   return (
-    <div className="">
-      <h1 className="">Holdings</h1>
-      <table className="">
+    <div>
+      <h1>Holdings</h1>
+      <table>
         <tbody>
           {holdings.map((holdingItem, index) => (
-            <tr key={index} className="">
+            <tr key={index}>
               <td className="indexColumn">{index + 1 + "."}</td>
-              <td className="">Symbol: {holdingItem.symbol},</td>
-              <td className="">Quantity: {holdingItem.quantity},</td>
-              <td className="">Price: ${holdingItem.price.toFixed(2)}</td>
+              <td>Symbol: {holdingItem.symbol},</td>
+              <td>Quantity: {holdingItem.quantity},</td>
+              <td>Price: ${holdingItem.price.toFixed(2)}</td>
               <td>
                 <input
                   className="input"
@@ -49,7 +49,7 @@ function Holding() {
                   }
                 ></input>
               </td>
-              <td className="">
+              <td>
                 <div className="sellButton">
                   <button
                     onClick={() =>

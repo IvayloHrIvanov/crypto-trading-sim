@@ -4,7 +4,12 @@ export const createHoldingBody = (symbol, quantity, price) => ({
   price: price,
 });
 
-export const buildBuyTransactionBody = (symbol, quantity, price, holdingId) => ({
+export const buildBuyTransactionBody = (
+  symbol,
+  quantity,
+  price,
+  holdingId
+) => ({
   assetSymbol: symbol,
   assetQuantity: quantity,
   assetPrice: price,
@@ -14,7 +19,13 @@ export const buildBuyTransactionBody = (symbol, quantity, price, holdingId) => (
   },
 });
 
-export const buildSellTransactionData = (symbol, quantity, price, profit, holdingId) => ({
+export const buildSellTransactionData = (
+  symbol,
+  quantity,
+  price,
+  profit,
+  holdingId
+) => ({
   assetSymbol: symbol,
   assetQuantity: quantity,
   assetPrice: price,
@@ -25,7 +36,12 @@ export const buildSellTransactionData = (symbol, quantity, price, profit, holdin
   },
 });
 
-export const buildSellTransactionWithoutHoldingData = (symbol, quantity, price, profit) => ({
+export const buildSellTransactionWithoutHoldingData = (
+  symbol,
+  quantity,
+  price,
+  profit
+) => ({
   assetSymbol: symbol,
   assetQuantity: quantity,
   assetPrice: price,

@@ -14,6 +14,13 @@ import { formatCryptoPrices } from "@/util/cryptoUtils";
 
 const HandleSell = async (holding, symbol, quantity, price) => {
   try {
+    if (quantity < 1 || quantity == null) {
+      alert(
+        "Cannot sell 0 or negative cryptocurrency."
+      );
+      return;
+    }
+
     const accountBalances = await getAccountBalances(); // Wait for the balances
     const rawPrices = await getCryptoPrices();
     const formattedPrices = formatCryptoPrices(rawPrices); // Filter and map the data for easier consumption

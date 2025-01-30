@@ -16,12 +16,12 @@ function TransactionHistory() {
   }, []);
 
   return (
-    <div className="">
-      <h1 className="">Transaction History</h1>
-      <table className="">
+    <div>
+      <h1>Transaction History</h1>
+      <table>
         <tbody>
           {transactions.map((transaction, index) => (
-            <tr key={index} className="">
+            <tr key={index}>
               <td className="indexColumn">{index + 1 + "."}</td>
               <td className="transactionColumn">Type: {transaction.transactionType}</td>
               <td className="transactionColumn">Symbol: {transaction.assetSymbol}</td>

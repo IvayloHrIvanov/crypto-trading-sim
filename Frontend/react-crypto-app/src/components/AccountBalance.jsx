@@ -17,10 +17,10 @@ function AccountBalance() {
 
   return (
     <div id="content " className="ribbon">
-      <h2 className="">Account Balance</h2>
-      <div className="">
+      <h2>Account Balance</h2>
+      <div>
         {balances.map((accountBalance, index) => (
-          <div key={index} className="">
+          <div key={index}>
             <p>Balance: {accountBalance.accountBalance.toFixed(2)}</p>
           </div>
         ))}

@@ -1,6 +1,6 @@
 ***Update and improve later
 
-1. Node.js and npm download
+1. Node.js and npm download (npm install)
 
 2. Java 11 setup and download
 

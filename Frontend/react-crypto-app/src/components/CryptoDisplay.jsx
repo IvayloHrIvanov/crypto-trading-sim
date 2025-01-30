@@ -19,8 +19,8 @@ const CryptoDisplay = ({onInputChange, cryptoPrices, inputQuantity}) => {
           .map((crypto, index) => (
             <tr key={crypto.symbol}>
               <td className="indexColumn">{index + 1 + "."}</td>
-              <td className="">{crypto.symbol ? crypto.symbol : "N/A"}</td>
-              <td className="">
+              <td>{crypto.symbol ? crypto.symbol : "N/A"}</td>
+              <td>
                 {crypto.price ? `${crypto.price.toFixed(2)}$` : "N/A"}
               </td>
               <td>
@@ -32,7 +32,7 @@ const CryptoDisplay = ({onInputChange, cryptoPrices, inputQuantity}) => {
                   onChange={(e) => onInputChange(crypto.symbol, e.target.value)}
                 ></input>
               </td>
-              <td className="">
+              <td>
                 <div className="buyButton">
                   <button onClick={() => HandleBuy(
                         crypto.symbol,
