@@ -36,6 +36,9 @@ public class TransactionEntity {
     @Column(name = "profit_loss")
     private Double profit; //Wrapper Class so it can be assigned null value
 
+    @Column(name = "asset_sold_at")
+    private Double soldAt; //Wrapper Class so it can be assigned null value
+
     @ManyToOne
     @JoinColumn(name = "holding_id")
     @JsonBackReference
