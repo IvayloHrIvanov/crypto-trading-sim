@@ -4,7 +4,6 @@ import com.example.crypto.tradingplatform.repository.AccountBalanceRepo;
 import com.example.crypto.tradingplatform.entity.AccountBalanceEntity;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +23,7 @@ public class AccountBalanceService {
     public Optional<AccountBalanceEntity> getAccountById(Long id) {
         return accountBalanceRepo.findById(id);
     }
-    @Transactional
+
     public AccountBalanceEntity createAccount(AccountBalanceEntity account) {
         return accountBalanceRepo.save(account);
     }

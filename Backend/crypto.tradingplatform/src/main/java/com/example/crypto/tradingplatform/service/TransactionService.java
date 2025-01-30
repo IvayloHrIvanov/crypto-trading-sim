@@ -31,9 +31,9 @@ public class TransactionService {
     public Optional<TransactionEntity> updateTransaction(Long id, TransactionEntity updatedTransaction) {
         return transactionRepo.findById(id)
                 .map(transaction -> {
-                    transaction.setTransactionSymbol(updatedTransaction.getTransactionSymbol());
-                    transaction.setTransactionQuantity(updatedTransaction.getTransactionQuantity());
-                    transaction.setTransactionPrice(updatedTransaction.getTransactionPrice());
+                    transaction.setAssetSymbol(updatedTransaction.getAssetSymbol());
+                    transaction.setAssetQuantity(updatedTransaction.getAssetQuantity());
+                    transaction.setAssetPrice(updatedTransaction.getAssetPrice());
                     transaction.setTransactionType(updatedTransaction.getTransactionType());
                     return transactionRepo.save(transaction);
                 });

@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173/")
 public class CryptoController {
     @Autowired
     private KrakenWebSocketService krakenWebSocketService;
 
-    @CrossOrigin(origins = "http://localhost:5173/")
     @GetMapping("/api/crypto-prices")
     public Map<String, JsonNode> getCryptoPrices() {
         return krakenWebSocketService.getCryptoPrices();

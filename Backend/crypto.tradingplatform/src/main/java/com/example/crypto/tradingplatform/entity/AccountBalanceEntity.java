@@ -18,6 +18,6 @@ public class AccountBalanceEntity {
     @Column(name = "account_id")
     private Long accountId;
 
-    @Column(name = "account_balance", nullable = false, insertable = false)
+    @Column(name = "balance", nullable = false, insertable = false)
     private double accountBalance;
 }
