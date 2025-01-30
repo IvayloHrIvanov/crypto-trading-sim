@@ -18,12 +18,13 @@ const HandleSell = async (holding, symbol, quantity, price) => {
     const rawPrices = await getCryptoPrices();
     const formattedPrices = formatCryptoPrices(rawPrices); // Filter and map the data for easier consumption
 
+    const accountBalance = parseFloat(accountBalances[0].accountBalance);
     let updatedBalance, priceDifference;
 
-    for (const priceData of formattedPrices) {
-      if (priceData.symbol === symbol) {
-        priceDifference = priceData.price - price;
-        updatedBalance = accountBalances[0].accountBalance - priceDifference;
+    for (const cryptoData of formattedPrices) {
+      if (cryptoData.symbol === symbol) {
+        priceDifference = cryptoData.price - price; // Calculate the price difference
+        updatedBalance = accountBalance - priceDifference * quantity;
         break; // Exit loop early once found
       }
     }
@@ -39,10 +40,13 @@ const HandleSell = async (holding, symbol, quantity, price) => {
       return;
     }
 
+    const profitOrLoss = parseFloat((priceDifference * quantity).toFixed(2));
+    const sum = profitOrLoss + parseFloat(price) + accountBalance;
+
+    updatedBalance = parseFloat(sum.toFixed(2));
     await updateAccountBalance(accountBalances[0].accountId, updatedBalance);
 
     const remainingHoldingQuantity = holding.quantity - quantity;
-    const profit = priceDifference * quantity;
 
     if (remainingHoldingQuantity != 0) {
       await updateHolding(
@@ -55,7 +59,7 @@ const HandleSell = async (holding, symbol, quantity, price) => {
           symbol,
           quantity,
           price,
-          profit,
+          profitOrLoss,
           holding.holdingId
         )
       );
@@ -63,7 +67,12 @@ const HandleSell = async (holding, symbol, quantity, price) => {
       await deleteHolding(holding.holdingId);
 
       await createTransaction(
-        buildSellTransactionWithoutHoldingData(symbol, quantity, price, profit)
+        buildSellTransactionWithoutHoldingData(
+          symbol,
+          quantity,
+          price,
+          profitOrLoss
+        )
       );
     }
 
