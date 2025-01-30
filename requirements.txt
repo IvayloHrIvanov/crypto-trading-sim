@@ -1,11 +1,7 @@
-***Update and improve later
+Required Software for this project is: 
 
-1. Node.js and npm download (npm install)
-
-2. Java 11 setup and download
-
-3. Text editor or IDE (Visual Studio and IntelliJ)
-
-4. PostgreSQL and (optional) PgAdmin
-
-5. Lombok and axios?
+1. Node.js and npm
+2. Java 11
+3. Favorite text editor or IDE (Recommended: Visual Studio Code and IntelliJ)
+4. PostgreSQL and (optional) PgAdmin 4
+5. Lombok
