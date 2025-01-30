@@ -2,6 +2,7 @@ Required Software for this project is:
 
 1. Node.js and npm
 2. Java 11
-3. Favorite text editor or IDE (Recommended: Visual Studio Code and IntelliJ)
-4. PostgreSQL and (optional) PgAdmin 4
-5. Lombok
+3. Git
+4. Favorite text editor or IDE (Recommended: Visual Studio Code and IntelliJ)
+5. PostgreSQL and (optional) PgAdmin 4
+6. Lombok
