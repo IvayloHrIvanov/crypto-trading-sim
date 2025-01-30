@@ -10,7 +10,7 @@ export const handleApiError = (error, customMessage = "") => {
       // No response received from the server
       console.error("Request error:", error.request);
     } else {
-      // Other errors (e.g., setting up the request)
+      // Other errors
       console.error("Error setting up request:", error.message);
     }
   };

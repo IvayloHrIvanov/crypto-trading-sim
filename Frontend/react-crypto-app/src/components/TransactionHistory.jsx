@@ -6,7 +6,7 @@ function TransactionHistory() {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    getTransactions()
+    getTransactions() //Get all transactions
       .then((response) => {
         setTransactions(response);
       })
@@ -20,7 +20,7 @@ function TransactionHistory() {
       <h1>Transaction History</h1>
       <table>
         <tbody>
-          {transactions.map((transaction, index) => (
+          {transactions.map((transaction, index) => ( //Display transactions
             <tr key={index}>
               <td className="indexColumn">{index + 1 + "."}</td>
               <td className="transactionColumn">Type: {transaction.transactionType}</td>

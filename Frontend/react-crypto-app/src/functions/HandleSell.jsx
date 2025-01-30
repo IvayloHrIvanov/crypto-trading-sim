@@ -21,7 +21,7 @@ const HandleSell = async (holding, symbol, quantity, price) => {
       return;
     }
 
-    const accountBalances = await getAccountBalances(); // Wait for the balances
+    const accountBalances = await getAccountBalances();
     const rawPrices = await getCryptoPrices();
     const formattedPrices = formatCryptoPrices(rawPrices); // Filter and map the data for easier consumption
 
@@ -32,12 +32,12 @@ const HandleSell = async (holding, symbol, quantity, price) => {
       if (cryptoData.symbol === symbol) {
         priceDifference = cryptoData.price - price; // Calculate the price difference
         updatedBalance = accountBalance - priceDifference * quantity;
-        break; // Exit loop early once found
+        break;
       }
     }
 
     if (updatedBalance == null) {
-      throw new Error("Price for ${symbol} not found.");
+      throw new Error(`Price for ${symbol} not found.`);
     }
 
     if (updatedBalance < 0) {
@@ -47,8 +47,8 @@ const HandleSell = async (holding, symbol, quantity, price) => {
       return;
     }
 
-    const profitOrLoss = parseFloat((priceDifference * quantity).toFixed(2));
-    const sum = profitOrLoss + parseFloat(price) + accountBalance;
+    const profitOrLoss = parseFloat((priceDifference * quantity).toFixed(2)); // Calculate the profit
+    const sum = profitOrLoss + parseFloat(price) + accountBalance; // Calculate update Balance
 
     updatedBalance = parseFloat(sum.toFixed(2));
     await updateAccountBalance(accountBalances[0].accountId, updatedBalance);
@@ -58,7 +58,7 @@ const HandleSell = async (holding, symbol, quantity, price) => {
     if (remainingHoldingQuantity != 0) {
       await updateHolding(
         holding.holdingId,
-        createHoldingBody(symbol, remainingHoldingQuantity, price)
+        createHoldingBody(symbol, remainingHoldingQuantity, price) //Update Holding if quantity is not 0 (didn't sell all)
       );
 
       await createTransaction(
@@ -71,7 +71,7 @@ const HandleSell = async (holding, symbol, quantity, price) => {
         )
       );
     } else {
-      await deleteHolding(holding.holdingId);
+      await deleteHolding(holding.holdingId); //Delete Holding if quantity is 0
 
       await createTransaction(
         buildSellTransactionWithoutHoldingData(

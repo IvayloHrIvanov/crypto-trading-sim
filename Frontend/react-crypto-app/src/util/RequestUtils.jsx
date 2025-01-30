@@ -1,3 +1,4 @@
+// Create json body for various requests
 export const createHoldingBody = (symbol, quantity, price) => ({
   symbol: symbol,
   quantity: quantity,

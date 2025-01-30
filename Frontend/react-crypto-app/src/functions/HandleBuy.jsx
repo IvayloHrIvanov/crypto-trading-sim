@@ -12,7 +12,7 @@ const HandleBuy = async (symbol, quantity, price) => {
       return;
     }
 
-    const accountBalances = await getAccountBalances(); // Wait for the balances
+    const accountBalances = await getAccountBalances();
     const updatedBalance = accountBalances[0].accountBalance - price * quantity; // Calculate the available balance
 
     if (updatedBalance < 0) {
@@ -29,7 +29,7 @@ const HandleBuy = async (symbol, quantity, price) => {
     let existingHoldingId, newHoldingQuantity;
 
     for(let i = 0; i < existingHoldings.length; i++){
-      if(existingHoldings[i].symbol == symbol && existingHoldings[i].price == price){
+      if(existingHoldings[i].symbol == symbol && existingHoldings[i].price == price){ //Check if there is an existing Holding
         existingHoldingId = existingHoldings[i].holdingId;
         newHoldingQuantity = parseInt(existingHoldings[i].quantity, 10) + parseInt(quantity, 10);
         checkExistingHolding = true;
@@ -40,8 +40,10 @@ const HandleBuy = async (symbol, quantity, price) => {
     let updatedOrNewHolding
     
     if(checkExistingHolding){
+      //If there is an existing Holding - update it
       updatedOrNewHolding = await updateHolding(existingHoldingId, createHoldingBody(symbol, newHoldingQuantity, price));
     } else {
+      //If there isn't an existing Holding - create new one
       updatedOrNewHolding = await createHolding(createHoldingBody(symbol, quantity, price));
     }
 

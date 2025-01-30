@@ -8,7 +8,7 @@ function Holding() {
   const [inputValues, setInputValues] = useState({});
 
   useEffect(() => {
-    getHoldings()
+    getHoldings() //Get all Holdings
       .then((response) => {
         setHoldings(response);
       })
@@ -17,7 +17,7 @@ function Holding() {
       });
   }, []);
 
-  const handleInputChange = (symbol, quantity, value) => {
+  const handleInputChange = (symbol, quantity, value) => { //Update the input field for every cryptocurrency
     if (value <= quantity) {
       setInputValues((prevValues) => {
         const updatedValues = Object.assign({}, prevValues);
@@ -32,7 +32,7 @@ function Holding() {
       <h1>Holdings</h1>
       <table>
         <tbody>
-          {holdings.map((holdingItem, index) => (
+          {holdings.map((holdingItem, index) => ( //Display Holdings
             <tr key={index}>
               <td className="indexColumn">{index + 1 + "."}</td>
               <td>Symbol: {holdingItem.symbol},</td>

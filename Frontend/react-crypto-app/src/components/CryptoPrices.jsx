@@ -5,14 +5,13 @@ import CryptoDisplay from "@/components/CryptoDisplay";
 
 function CryptoPrices() {
   const [cryptoPrices, setCryptoPrices] = useState([]);
-  const [inputQuantity, setinputQuantity] = useState({}); // State to track the input values
+  const [inputQuantity, setInputQuantity] = useState({});
 
   useEffect(() => {
     const fetchPrices = async () => {
       try {
-        const rawPrices = await getCryptoPrices();
-        // Filter the ticker updates and map the data for easier consumption
-        const formattedPrices = formatCryptoPrices(rawPrices);
+        const rawPrices = await getCryptoPrices(); //Get Crypto prices
+        const formattedPrices = formatCryptoPrices(rawPrices); // Filter and map the data for easier consumption
 
         setCryptoPrices((prevPrices) =>
           updateCryptoPrices(prevPrices, formattedPrices)
@@ -24,12 +23,12 @@ function CryptoPrices() {
 
     fetchPrices();
 
-    const interval = setInterval(fetchPrices, 1000);
+    const interval = setInterval(fetchPrices, 1000); //Interval to Get Crypto prices every 1000ms
     return () => clearInterval(interval);
   }, []);
 
-  const handleInputChange = (symbol, value) => {
-    setinputQuantity((prevValues) => {
+  const handleInputChange = (symbol, value) => { //Update the input field for every cryptocurrency
+    setInputQuantity((prevValues) => {
       const updatedValues = Object.assign({}, prevValues);
       updatedValues[symbol] = value; // Update the specific symbol with the new value
       return updatedValues; // Return the updated state
