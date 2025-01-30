@@ -31,7 +31,7 @@ Instructions on how to run the application (with IntelliJ, Visual Studio Code an
     kraken.websocket.url=wss://ws.kraken.com/v2
 
 
-  - Run the project from Backend/crypto.tradingplatform/src/main/java/com/example/crypto/tradingplatform/CryptoTradingPlatformApplication.java
+  - Build and Run the project from Backend/crypto.tradingplatform/src/main/java/com/example/crypto/tradingplatform/CryptoTradingPlatformApplication.java
 5. Open Frontend/react-crypto-app in Visual Studio Code
   - Open New Terminal and run: npm install
   - After the module installation run: npm run dev
