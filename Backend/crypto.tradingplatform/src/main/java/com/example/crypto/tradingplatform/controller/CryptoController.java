@@ -17,6 +17,11 @@ public class CryptoController {
     @Autowired
     private KrakenWebSocketService krakenWebSocketService;
 
+    /**
+     * Get all cryptocurrency prices from the Kraken WebSocket service
+
+     * @return Map where the keys are cryptocurrency symbols and the values are the prices
+     */
     @GetMapping
     public Map<String, JsonNode> getAllCryptoPrices() {
         return krakenWebSocketService.getCryptoPrices();

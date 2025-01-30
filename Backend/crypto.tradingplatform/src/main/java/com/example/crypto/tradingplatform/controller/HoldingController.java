@@ -2,6 +2,7 @@ package com.example.crypto.tradingplatform.controller;
 
 import com.example.crypto.tradingplatform.entity.HoldingEntity;
 import com.example.crypto.tradingplatform.service.HoldingService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +20,22 @@ public class HoldingController {
         this.holdingService = holdingService;
     }
 
+    /**
+     * Get all holdings in the DB
+     *
+     * @return list of all holdings
+     */
     @GetMapping
     public List<HoldingEntity> getAllHoldings() {
         return holdingService.getAllHoldings();
     }
 
+    /**
+     * Get holding by Id
+     *
+     * @param id the Id of the holding to retrieve
+     * @return ResponseEntity with the holding if found or 404 Not Found status
+     */
     @GetMapping("/{id}")
     public ResponseEntity<HoldingEntity> getHoldingById(@PathVariable Long id) {
         return holdingService.getHoldingById(id)
@@ -31,6 +43,12 @@ public class HoldingController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Get holding by symbol
+     *
+     * @param symbol the symbol of the holding to retrieve
+     * @return ResponseEntity with the holding if found or 404 Not Found status
+     */
     @GetMapping("/symbol/{symbol}")
     public ResponseEntity<HoldingEntity> getHoldingBySymbol(@PathVariable char[] symbol) {
         return holdingService.getHoldingBySymbol(symbol)
@@ -38,23 +56,43 @@ public class HoldingController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Create new holding
+     *
+     * @param holding the holding request body to create
+     * @return ResponseEntity with the created holding entity
+     */
     @PostMapping
-    public HoldingEntity createHolding(@RequestBody HoldingEntity holding) {
-        return holdingService.createHolding(holding);
+    public ResponseEntity<HoldingEntity> createHolding(@RequestBody HoldingEntity holding) {
+        HoldingEntity createdHolding = holdingService.createHolding(holding);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdHolding);
     }
 
+    /**
+     * Update an existing holding by Id
+     *
+     * @param id the Id of the holding to update
+     * @param holding the holding request body to update
+     * @return ResponseEntity with the updated holding if found or 404 Not Found status
+     */
     @PutMapping("/{id}")
     public ResponseEntity<HoldingEntity> updateHolding(
             @PathVariable Long id, @RequestBody HoldingEntity holding) {
         return holdingService.updateHolding(id, holding)
-                .map(ResponseEntity::ok) // If holding is updated, return HTTP 200 with the updated entity
-                .orElseGet(() -> ResponseEntity.notFound().build()); // If not found, return HTTP 404
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    /**
+     * Delete holding by its Id
+     *
+     * @param id the Id of the holding to delete
+     * @return ResponseEntity with text to show if the deletion was successful or not
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteHolding(@PathVariable Long id) {
         Optional<HoldingEntity> account = holdingService.getHoldingById(id);
-        if (account.isPresent()) { // delete only if it exists
+        if (account.isPresent()) { // Delete only if it exists
             holdingService.deleteHolding(id);
             return ResponseEntity.ok().body("Deleted holding successfully");
         } else {
@@ -62,6 +100,11 @@ public class HoldingController {
         }
     }
 
+    /**
+     * Delete all holdings in the DB
+     *
+     * @return ResponseEntity with text showing that the deletion was successful
+     */
     @DeleteMapping("/deleteAll")
     public ResponseEntity<Void> deleteAllHoldings() {
         holdingService.deleteAllHoldings();
