@@ -1,16 +1,15 @@
 #root {
-  max-width: 1280px;
+  max-width: 1920px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
   color: white;
 }
 
 button {
   border-radius: 8px;
   border: 3px solid transparent;
-  padding: 0.6em 0.6em;
-  font-size: 1em;
+  padding: 0.4em 0.6em;
+  font-size: 0.9em;
   font-family: inherit;
   background-color: white;
   cursor: pointer;
@@ -21,16 +20,44 @@ button:hover {
   border-color: #646cff;
 }
 
-.logo.react {
-  height: 12em;
-  padding: 1.5em;
-  transition: filter 300ms;
+.crypto.prices {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+#content {
+  position:relative;
+}
+
+.ribbon {
+  position:absolute;
+  top:0;
+  right:20px;
+}
+
+.logo.react {
+  position: absolute;
+  height: 10em;
+  transition: filter 300ms;
+  top: 5px;
+  left: 10px;
+}
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.transactionColumn {
+  padding-right: 7px;
+}
+
 .header {
+  padding-bottom: 0.5em;
+}
+
+.headerBuyAmount {
+  padding-left: 0.7em;
   padding-bottom: 0.5em;
 }
 
@@ -39,19 +66,19 @@ button:hover {
   padding-right: 0.5em;
 }
 
-.inputBuyCount {
+input {
   text-align: center;
   width: 4em;
 }
 
-.cryptoNumeration {
-  padding-right: 0.5em;
+.indexColumn {
+  padding-right: 5px;
 }
 
 .buyButton {
-  padding-left: 1em;
+  padding-left: 10px;
 }
 
-.boughtNumeration {
-  padding-left: 1em;
+.sellButton {
+  padding-left: 5px;
 }

@@ -1,16 +1,8 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:8080/api/crypto-prices";
-
-export const getCryptoPrices = async () => {
-  try {
-    const response = await axios.get(API_URL);
-    return response.data;
-  } catch (error) {
+export const handleApiError = (error, customMessage = "") => {
     // Log the error for debugging
-    console.error("Error fetching crypto prices:", error);
-
-    // You can handle different error scenarios here:
+    console.error(customMessage, error);
+  
+    // Handle different error scenarios
     if (error.response) {
       // Server responded with a status other than 2xx
       console.error("Response error:", error.response.data);
@@ -21,5 +13,5 @@ export const getCryptoPrices = async () => {
       // Other errors (e.g., setting up the request)
       console.error("Error setting up request:", error.message);
     }
-  }
-};
+  };
+  
