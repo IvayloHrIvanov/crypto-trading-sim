@@ -8,7 +8,7 @@ function Holding() {
   const [inputValues, setInputValues] = useState({});
 
   useEffect(() => {
-    getHoldings() //Get all Holdings
+    getHoldings() // Get all Holdings
       .then((response) => {
         setHoldings(response);
       })
@@ -17,13 +17,11 @@ function Holding() {
       });
   }, []);
 
-  const handleInputChange = (symbol, quantity, value) => { //Update the input field for every cryptocurrency
-    if (value <= quantity) {
-      setInputValues((prevValues) => {
-        const updatedValues = Object.assign({}, prevValues);
-        updatedValues[symbol] = value; // Update the specific symbol with the new value
-        return updatedValues; // Return the updated state
-      });
+  const handleInputChange = (index, quantity, value) => {
+    if (value <= quantity) { // Ensure that the value to sell doesn't exceed the available quantity
+      const updatedValues = Object.assign({}, inputValues);
+      updatedValues[index] = value; // Update the input value only for the specific index
+      setInputValues(updatedValues);
     }
   };
 
@@ -32,7 +30,10 @@ function Holding() {
       <h1>Holdings</h1>
       <table>
         <tbody>
-          {holdings.map((holdingItem, index) => ( //Display Holdings
+          {holdings
+          .slice()
+          .sort((a, b) => a.symbol.localeCompare(b.symbol)) // Sort holdings based on symbol
+          .map((holdingItem, index) => ( // Display Holdings
             <tr key={index}>
               <td className="indexColumn">{index + 1 + "."}</td>
               <td>Symbol: {holdingItem.symbol},</td>
@@ -43,9 +44,9 @@ function Holding() {
                   className="input"
                   type="number"
                   min="0"
-                  value={inputValues[holdingItem.symbol] || 0}
+                  value={inputValues[index] || 0}
                   onChange={(e) =>
-                    handleInputChange(holdingItem.symbol, holdingItem.quantity, e.target.value)
+                    handleInputChange(index, holdingItem.quantity, e.target.value)
                   }
                 ></input>
               </td>
@@ -56,7 +57,7 @@ function Holding() {
                       HandleSell(
                         holdingItem,
                         holdingItem.symbol,
-                        inputValues[holdingItem.symbol],
+                        inputValues[index],
                         holdingItem.price.toFixed(2)
                       )}>Sell</button>
                 </div>

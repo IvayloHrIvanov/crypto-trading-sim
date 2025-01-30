@@ -30,10 +30,20 @@ export const createAccountBalance = async (accountBalance) => {
   }
 };
 
+export const createAccountWithDefaultBalance = async () => {
+  try {
+    const response = await axios.post("/account-balance/default");
+    console.log("Default Account balance Created:", response.data);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, "Error creating default account balance: ");
+  }
+};
+
 export const updateAccountBalance = async (accountId, accountBalance) => {
   try {
     const response = await axios.put(`/account-balance/${accountId}`, {
-      accountBalance: accountBalance, // Ensure you're sending the accountBalance in an object
+      accountBalance: accountBalance,
     });
     console.log("Account balance Updated:", response.data);
   } catch (error) {
