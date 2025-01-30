@@ -15,8 +15,8 @@ const CryptoDisplay = ({onInputChange, cryptoPrices, inputQuantity}) => {
       <tbody>
         {cryptoPrices
           .slice()
-          .sort((a, b) => b.price - a.price)
-          .map((crypto, index) => (
+          .sort((a, b) => b.price - a.price) // Sort the cryptocurrencies in descending order based on price
+          .map((crypto, index) => ( // Display crypto prices
             <tr key={crypto.symbol}>
               <td className="indexColumn">{index + 1 + "."}</td>
               <td>{crypto.symbol ? crypto.symbol : "N/A"}</td>

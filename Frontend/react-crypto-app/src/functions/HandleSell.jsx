@@ -12,6 +12,7 @@ import {
 } from "@/util/RequestUtils";
 import { formatCryptoPrices } from "@/util/cryptoUtils";
 
+// Function to handle the process of selling cryptocurrency
 const HandleSell = async (holding, symbol, quantity, price) => {
   try {
     if (quantity < 1 || quantity == null) {
@@ -21,14 +22,15 @@ const HandleSell = async (holding, symbol, quantity, price) => {
       return;
     }
 
+    // Fetch the current account balances and crypto prices
     const accountBalances = await getAccountBalances();
     const rawPrices = await getCryptoPrices();
     const formattedPrices = formatCryptoPrices(rawPrices); // Filter and map the data for easier consumption
-    let cryptoPrice;
 
     const accountBalance = parseFloat(accountBalances[0].accountBalance);
-    let updatedBalance, priceDifference;
+    let updatedBalance, priceDifference, cryptoPrice;
 
+    // Find the price of the symbol being sold
     for (const cryptoData of formattedPrices) {
       if (cryptoData.symbol === symbol) {
         cryptoPrice = parseFloat(cryptoData.price).toFixed(2);
@@ -37,8 +39,6 @@ const HandleSell = async (holding, symbol, quantity, price) => {
         break;
       }
     }
-
-    console.log("a", cryptoPrice);
 
     if (updatedBalance == null) {
       throw new Error(`Price for ${symbol} not found.`);
@@ -51,18 +51,19 @@ const HandleSell = async (holding, symbol, quantity, price) => {
       return;
     }
 
-    const profitOrLoss = parseFloat((priceDifference * quantity).toFixed(2)); // Calculate the profit
-    const sum = profitOrLoss + parseFloat(price) + accountBalance; // Calculate update Balance
+    const profitOrLoss = parseFloat((priceDifference * quantity).toFixed(2)); // Calculate the profit or loss
+    const sum = profitOrLoss + parseFloat(price) + accountBalance; // Calculate updated Balance
 
     updatedBalance = parseFloat(sum.toFixed(2));
-    await updateAccountBalance(accountBalances[0].accountId, updatedBalance);
+    await updateAccountBalance(accountBalances[0].accountId, updatedBalance); // Update the account balance with the new balance
 
     const remainingHoldingQuantity = holding.quantity - quantity;
 
+    // If there is any remaining quantity (didn't sell all), update the holding and record the transaction
     if (remainingHoldingQuantity != 0) {
       await updateHolding(
         holding.holdingId,
-        createHoldingBody(symbol, remainingHoldingQuantity, price) //Update Holding if quantity is not 0 (didn't sell all)
+        createHoldingBody(symbol, remainingHoldingQuantity, price)
       );
 
       await createTransaction(
@@ -75,8 +76,8 @@ const HandleSell = async (holding, symbol, quantity, price) => {
           holding.holdingId
         )
       );
-    } else {
-      await deleteHolding(holding.holdingId); //Delete Holding if quantity is 0
+    } else { // If there is any remaining quantity, delete the holding and record the transaction
+      await deleteHolding(holding.holdingId);
 
       await createTransaction(
         buildSellTransactionWithoutHoldingData(

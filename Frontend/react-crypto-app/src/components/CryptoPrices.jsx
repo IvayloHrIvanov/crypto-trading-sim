@@ -10,7 +10,7 @@ function CryptoPrices() {
   useEffect(() => {
     const fetchPrices = async () => {
       try {
-        const rawPrices = await getCryptoPrices(); //Get Crypto prices
+        const rawPrices = await getCryptoPrices(); // Get Crypto prices
         const formattedPrices = formatCryptoPrices(rawPrices); // Filter and map the data for easier consumption
 
         setCryptoPrices((prevPrices) =>
@@ -23,15 +23,15 @@ function CryptoPrices() {
 
     fetchPrices();
 
-    const interval = setInterval(fetchPrices, 1000); //Interval to Get Crypto prices every 1000ms
+    const interval = setInterval(fetchPrices, 1000); // Interval to Get Crypto prices every 1000ms
     return () => clearInterval(interval);
   }, []);
 
-  const handleInputChange = (symbol, value) => { //Update the input field for every cryptocurrency
+  const handleInputChange = (symbol, value) => { // Update the input field for every cryptocurrency
     setInputQuantity((prevValues) => {
       const updatedValues = Object.assign({}, prevValues);
       updatedValues[symbol] = value; // Update the specific symbol with the new value
-      return updatedValues; // Return the updated state
+      return updatedValues;
     });
   };
 

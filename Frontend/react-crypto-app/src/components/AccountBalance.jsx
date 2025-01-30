@@ -7,7 +7,7 @@ function AccountBalance() {
 
   useEffect(() => {
     getAccountBalances()
-      .then((response) => { //Get all Account Balances
+      .then((response) => { // Get all Account Balances
         setBalances(response);
       })
       .catch((error) => {
@@ -19,7 +19,7 @@ function AccountBalance() {
     <div id="content " className="ribbon">
       <h2>Account Balance</h2>
       <div>
-        {balances.map((accountBalance, index) => ( //Display Account Balances
+        {balances.map((accountBalance, index) => ( // Display Account Balances
           <div key={index}>
             <p>Balance: {accountBalance.accountBalance.toFixed(2)}</p>
           </div>
